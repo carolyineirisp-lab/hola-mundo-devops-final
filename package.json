@@ -1,20 +1,12 @@
 {
-  "name": "hola-mundo-devops-v2",
+  "name": "hola-mundo-devops-final",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-"scripts": {
-  "start": "node index.js",
-  "test": "node __tests__/app.test.js"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^5.2.1"
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
   },
-  "devDependencies": {
-    "jest": "^30.2.0",
-    "supertest": "^7.1.4"
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
