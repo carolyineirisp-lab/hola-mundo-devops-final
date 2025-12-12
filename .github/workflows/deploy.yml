@@ -1,4 +1,4 @@
-name: CI/CD Hola Mundo DevOps
+name: Practica Final DevOps CI/CD
 
 on:
   push:
@@ -6,32 +6,38 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  pipeline:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del repositorio
+      - name: Checkout repositorio
         uses: actions/checkout@v4
 
-      - name: Login a Docker Hub
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar pruebas unitarias
+        run: npm test
+
+      - name: Login Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build y Push de la imagen
+      - name: Build y Push imagen Docker
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: carolperezg/hola-mundo-devops-v2:latest
+          tags: carolperezg/hola-mundo-devops-final:latest
 
-  deploy-render:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy automático en Render
+      - name: Deploy en Render
         run: |
           curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
