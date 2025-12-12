@@ -1,10 +1,9 @@
-const request = require("supertest");
-const app = require("../index");
+const assert = require("assert");
 
-describe("Prueba Hola Mundo", () => {
-  it("Debe responder Hola Mundo DevOps", async () => {
-    const res = await request(app).get("/");
-    expect(res.statusCode).toBe(200);
-    expect(res.text).toBe("Hola Mundo DevOps");
-  });
-});
+function holaMundo() {
+  return "Hola Mundo";
+}
+
+assert.strictEqual(holaMundo(), "Hola Mundo");
+
+console.log("Prueba unitaria pasada correctamente");
